@@ -1,0 +1,33 @@
+function navPuzzle(String matrix):
+    // Step 1: Load Maze
+    Maze maze = new Maze()
+    maze.LoadMap(matrix)
+
+    // Step 2: Initialize Robot with Maze
+    Robot robot = new Robot(maze)
+
+    entered = empty set
+    direction = 0  // Assume 0 = North, 1 = East, 2 = South, 3 = West
+
+    function search(x, y, direction):
+        if (x, y, direction) in entered:
+            return
+
+        entered.add((x, y, direction))
+
+        for i from 0 to 3:
+            if robot.Move():
+                newX, newY = updated coordinates after moving in direction
+                dfs(newX, newY, direction)
+                backtrack to previous position:
+                    robot.Turn()  // 2 times to turn around
+                    robot.Turn()
+                    robot.Move()
+                    robot.Turn()  // restore original direction
+                    robot.Turn()
+            robot.Turn()
+            direction = (direction + 1) % 4
+
+    search(startX, startY, direction)
+
+    // Step 6: Maze.OnExit event will be triggered upon successful exit
