@@ -1,0 +1,14 @@
+function navPuzzle(String matrix):
+    // Step 1: Load the maze
+    Maze maze = new Maze()
+    maze.LoadMap(matrix)
+
+    // Step 2: Initialize the robot
+    Robot robot = new Robot(maze)
+
+    // Step 3: Keep trying to move forward
+    loop until maze.OnExit is triggered:
+        if robot.Move():
+            continue  // Move forward if possible
+        else:
+            robot.Turn()  // Turn right and try again
